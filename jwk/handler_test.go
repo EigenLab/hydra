@@ -39,7 +39,7 @@ var IDKS *jose.JSONWebKeySet
 
 func init() {
 	router := httprouter.New()
-	IDKS, _ = testGenerator.Generate("test-id")
+	IDKS, _ = testGenerator.Generate("test-id", "sig")
 
 	h := Handler{
 		Manager: &MemoryManager{},

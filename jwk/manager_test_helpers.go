@@ -66,6 +66,17 @@ func TestHelperManagerKey(m Manager, keys *jose.JSONWebKeySet, suffix string) fu
 		assert.Nil(t, err)
 		assert.Equal(t, pub, got.Keys)
 
+		First(pub).KeyID = "new-key-id:" + suffix
+		err = m.AddKey("faz", First(pub))
+		assert.Nil(t, err)
+
+		_, err = m.GetKey("faz", "new-key-id:"+suffix)
+		assert.Nil(t, err)
+
+		keys, err = m.GetKeySet("faz")
+		assert.Nil(t, err)
+		assert.EqualValues(t, "new-key-id:"+suffix, First(keys.Keys).KeyID)
+
 		err = m.DeleteKey("faz", "public:"+suffix)
 		assert.Nil(t, err)
 

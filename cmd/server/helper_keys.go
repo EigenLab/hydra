@@ -65,7 +65,7 @@ func createOrGetJWK(c *config.Config, set string, prefix string) (key *jose.JSON
 
 func createJWKS(ctx *config.Context, set string) (*jose.JSONWebKeySet, error) {
 	generator := jwk.RS256Generator{}
-	keys, err := generator.Generate("")
+	keys, err := generator.Generate("", "sig")
 	if err != nil {
 		return nil, errors.Wrapf(err, "Could not generate %s key", set)
 	}
